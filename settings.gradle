@@ -1,0 +1,6 @@
+rootProject.name = 'monitor'
+include 'monitor-core'
+include 'monitor-web'
+include 'scaner-app'
+include 'county-server'
+
