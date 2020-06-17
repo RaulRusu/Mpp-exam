@@ -1,4 +1,4 @@
-package ro.ubb.catalog.web.dto;
+package ro.ubb.monitor.web.dto;
 
 import lombok.*;
 

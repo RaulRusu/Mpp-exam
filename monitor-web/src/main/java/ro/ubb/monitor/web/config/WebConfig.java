@@ -1,4 +1,4 @@
-package ro.ubb.catalog.web.config;
+package ro.ubb.monitor.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

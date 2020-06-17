@@ -1,5 +1,10 @@
 package ro.ubb.server;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestTemplate;
+import ro.ubb.monitor.core.model.Vote;
+import ro.ubb.monitor.web.dto.VoteDto;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -17,7 +22,7 @@ public class CountyServer {
     private ReentrantLock lock;
     private int totalA;
     private int totalB;
-    private int totlaC;
+    private int totalC;
 
     public CountyServer(String name, int countyID) {
         this.executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -26,12 +31,12 @@ public class CountyServer {
         this.lock = new ReentrantLock();
         totalA = 0;
         totalB = 0;
-        totlaC = 0;
+        totalC = 0;
     }
 
     public void startServer() {
         System.out.println("Server started");
-
+        executorService.submit(new VoteSender());
         try (ServerSocket serverSocket = new ServerSocket(this.countyID)) {
             while (true) {
                 Socket scannerSocket = serverSocket.accept();
@@ -63,7 +68,11 @@ public class CountyServer {
                     String candidateC = in.readLine();
                     lock.lock();
 
-                    totalA =
+                    totalA += Integer.parseInt(candidateA);
+                    totalB += Integer.parseInt(candidateA);
+                    totalC += Integer.parseInt(candidateA);
+
+                    lock.unlock();
 
                     System.out.println(scannerName + ", " + candidateA + ", " + candidateB + ", " + candidateC);
 
@@ -81,9 +90,41 @@ public class CountyServer {
     }
 
     private class VoteSender implements Runnable {
+        int oldA;
+        int oldB;
+        int oldC;
+
+        @Autowired
+        RestTemplate restTemplate;
+
+        VoteSender() {
+            this.oldA = 0;
+            this.oldB = 0;
+            this.oldC = 0;
+        }
+
         @Override
         public void run() {
+            while (true) {
+                if(this.oldA != totalA || this.oldB != totalB || this.oldC != totalC) {
+                    lock.lock();
+                    VoteDto vote = new VoteDto(name, totalA, totalB, totalC, totalA + totalB + totalC);
+                    lock.unlock();
+                    System.out.println("Sending data to rest api");
+                    this.restTemplate.postForEntity("http://localhost:8080/api/voting", vote, vote.getClass());
+                    System.out.println(1);
+                }
+                else {
+                    System.out.println("data not changed");
+                }
 
+
+                try {
+                    Thread.sleep(new Random().nextInt(1000)+4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

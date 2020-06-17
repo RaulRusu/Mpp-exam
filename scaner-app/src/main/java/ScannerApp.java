@@ -23,7 +23,7 @@ public class ScannerApp {
 
     public static void main(String[] args) {
         //ScannerClass scannerClass = readScanner();
-        ScannerClass scannerClass = new ScannerClass("V2", 1111);
+        ScannerClass scannerClass = new ScannerClass("V1", 1111);
         if (scannerClass != null) {
             scannerClass.start();
         }

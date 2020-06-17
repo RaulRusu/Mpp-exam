@@ -1,6 +1,6 @@
 package ro.ubb.monitor.web.converter;
 
-import ro.ubb.catalog.web.dto.BaseDto;
+import ro.ubb.monitor.web.dto.BaseDto;
 import ro.ubb.monitor.core.model.BaseEntity;
 
 import java.util.Collection;
