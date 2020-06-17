@@ -1,4 +1,4 @@
-package ro.ubb.catalog.web.config;
+package ro.ubb.monitor.web.config;
 
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -6,7 +6,7 @@ import ro.ubb.catalog.core.config.JPAConfig;
 
 
 @Configuration
-@ComponentScan({"ro.ubb.catalog.core"})
+@ComponentScan({"ro.ubb.monitor.core"})
 @Import({JPAConfig.class})
 @PropertySources({@PropertySource(value = "classpath:local/db.properties"),
 })

@@ -1,4 +1,4 @@
-package ro.ubb.catalog.core.model;
+package ro.ubb.monitor.core.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

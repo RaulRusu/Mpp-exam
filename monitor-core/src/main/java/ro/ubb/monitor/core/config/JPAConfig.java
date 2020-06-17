@@ -1,4 +1,4 @@
-package ro.ubb.catalog.core.config;
+package ro.ubb.monitor.core.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -25,7 +25,7 @@ import javax.sql.DataSource;
  */
 
 @Configuration
-@EnableJpaRepositories({"ro.ubb.catalog.core.repository"})
+@EnableJpaRepositories({"ro.ubb.monitor.core.repository"})
 @EnableTransactionManagement
 //@EnableCaching
 public class JPAConfig {

@@ -1,4 +1,4 @@
-package ro.ubb.catalog.web.config;
+package ro.ubb.monitor.web.config;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
